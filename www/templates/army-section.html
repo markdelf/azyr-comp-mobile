@@ -1,0 +1,12 @@
+<div class="item item-divider">
+{{unitType}}
+<span class="item-note" ng-class="!isUnitTypeIsValid(unitType)?'assertive':''">{{getTotal(unitType)}}/{{getLimit(unitType)}} {{restrictions[unitType].type}}</span>
+  </div>
+<ion-item ng-repeat="unit in army|filter:{type:unitType}" href="#/app/playlists/{{playlist.id}}">
+
+  {{unit.title}}
+  	({{unit.models}})
+  <span class="item-note">{{unit.points}} pts</span>
+  <ion-option-button class="button-assertive"
+           ng-click="remove(unit)">Remove</ion-option-button>
+</ion-item>

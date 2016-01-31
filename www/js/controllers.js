@@ -1,5 +1,13 @@
 angular.module('starter.controllers', [])
-
+.directive('armySection', function() {
+  return {
+    templateUrl: 'templates/army-section.html',
+    restrict: 'E',
+    link: function(scope, element) {
+      //Nothing
+    }
+  };
+})
 .controller('AppCtrl', function($scope, $ionicModal, $timeout) {
 
   // With the new view caching in Ionic, Controllers are only called
@@ -41,15 +49,54 @@ angular.module('starter.controllers', [])
   };
 })
 
-.controller('PlaylistsCtrl', function($scope) {
-  $scope.playlists = [
-    { title: 'Reggae', id: 1 },
-    { title: 'Chill', id: 2 },
-    { title: 'Dubstep', id: 3 },
-    { title: 'Indie', id: 4 },
-    { title: 'Rap', id: 5 },
-    { title: 'Cowbell', id: 6 }
+.controller('ArmyCtrl', function($scope) {
+  $scope.unitTypes = ['Hero', 'War Machine', 'Unit'];
+  $scope.restrictions = {
+    'Hero': {count: 5, type: 'pts'},
+    'War Machine': {count: 2, type: 'units'},
+    'Unit': {count: 10, type: 'units'},
+    'Total': {count: 20, type: 'points'}
+  };
+  $scope.army = [
+    { title: 'Alarielle', id: 1, models: 1, points: 5, type: 'Hero' },
+    { title: 'Swordmasters', id: 2, models: 5, points: 3, type: 'Unit' },
+    { title: 'Bolt Thrower', id: 3, models: 1, crew: 2, points: 2, type: 'War Machine' },
+    { title: 'Mage', id: 4, models: 1, points: 1, type: 'Hero' },
+    { title: 'Elyrian Reavers', id: 5, models: 5, points: 6, modelsForPoints: 5, modelsPerPoint: 1, type: 'Unit' },
+    { title: 'White Lion Charriot', id: 6, models: 1, points: 4, type: 'Unit' },
   ];
+  $scope.getTotal = function(type)
+  {
+    var total = 0;
+    var restriction = $scope.restrictions[type];
+    for(var p in $scope.army) {
+      if ($scope.army[p].type == type || type == 'Total') {
+        if (restriction.type == "units") {
+          //unit count
+          total += 1;
+        } else {
+          //points count
+          total += $scope.army[p].points;
+        }
+      }
+    }
+    return total;
+  };
+
+  $scope.getLimit = function(unitType) {
+    return $scope.restrictions[unitType].count;
+  };
+  $scope.isUnitTypeIsValid = function(unitType) {
+    return $scope.getLimit(unitType) >= $scope.getTotal(unitType);
+  };
+
+  $scope.remove = function(unit)
+  {
+    var index = $scope.army.indexOf(unit);
+    if (index > -1) {
+        $scope.army.splice(index, 1);
+    }
+  }
 })
 
 .controller('PlaylistCtrl', function($scope, $stateParams) {
