@@ -4,7 +4,7 @@
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
 // 'starter.controllers' is found in controllers.js
-angular.module('starter', ['ionic', 'starter.controllers'])
+angular.module('azyrComp', ['ionic', 'azyrComp.controllers'])
 
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
@@ -35,7 +35,7 @@ angular.module('starter', ['ionic', 'starter.controllers'])
   .state('app.search', {
     url: '/search',
     views: {
-      'menuContent': {
+      'mainView': {
         templateUrl: 'templates/search.html'
       }
     }
@@ -44,27 +44,37 @@ angular.module('starter', ['ionic', 'starter.controllers'])
   .state('app.browse', {
       url: '/browse',
       views: {
-        'menuContent': {
+        'mainView': {
           templateUrl: 'templates/browse.html'
         }
       }
     })
-    .state('app.armyBuilder', {
+    .state('app.armybuilder', {
       url: '/army-builder',
       views: {
-        'menuContent': {
+        'mainView': {
           templateUrl: 'templates/army-builder.html',
           controller: 'ArmyCtrl'
         }
       }
     })
 
-  .state('app.single', {
-    url: '/playlists/:playlistId',
+    .state('app.armybuilder.army', {
+      url: '/army',
+      views: {
+        'armyTabContent': {
+          templateUrl: 'templates/army.html',
+          controller: 'ArmyCtrl'
+        }
+      }
+    })
+
+  .state('app.armybuilder.army.detail', {
+    url: '/warscroll/:warscrollId',
     views: {
-      'menuContent': {
-        templateUrl: 'templates/playlist.html',
-        controller: 'PlaylistCtrl'
+      'armyTabContent': {
+        templateUrl: 'templates/detail.html',
+        controller: 'WarscrollCtrl'
       }
     }
   });

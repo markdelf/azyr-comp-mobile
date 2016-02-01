@@ -1,0 +1,17 @@
+<ion-content style="margin-top:42px;">
+     <ion-list can-swipe="true" ng-if="getTotal('Total') > 0">
+		<army-section ng-repeat="unitType in unitTypes" ng-if="getTotal(unitType) > 0"></army-section>
+		<div class="item item-divider">
+Total
+<span class="item-note" ng-class="!isUnitTypeIsValid('Total')?'assertive':''">{{getTotal('Total')}}/{{getLimit('Total')}} {{restrictions['Total'].type}}</span>
+</div>
+    </ion-list>
+    <div class="card" ng-if="getTotal('Total') <= 0">
+	  <div class="item item-text-wrap">
+	  	<p>Start by adding warscrolls into your army.</p>
+	  	<button class="button button-block button-positive">
+		  Search
+		</button>
+	  </div>
+	</div>
+</ion-content>

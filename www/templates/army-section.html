@@ -1,8 +1,8 @@
 <div class="item item-divider">
 {{unitType}}
-<span class="item-note" ng-class="!isUnitTypeIsValid(unitType)?'assertive':''">{{getTotal(unitType)}}/{{getLimit(unitType)}} {{restrictions[unitType].type}}</span>
+<span class="item-note" ng-class="!isUnitTypeIsValid(unitType)?'assertive':''">{{getTotal(unitType)}}/{{getLimit(unitType)}} {{armyTypes[army.type].restrictions[unitType].type}}</span>
   </div>
-<ion-item ng-repeat="unit in army|filter:{type:unitType}" href="#/app/playlists/{{playlist.id}}">
+<ion-item ng-repeat="unit in army.units|filter:{type:unitType}" href="#/app/army-builder/army/warscroll/{{unit.id}}">
 
   {{unit.title}}
   	({{unit.models}})
